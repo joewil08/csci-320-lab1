@@ -11,7 +11,17 @@
  * 
  */
 char* readString(char* fileName){
-    //TODO: Replace this line with your code
+
+    FILE* fptr = fopen(fileName, "r");
+    if (fptr == NULL){
+        perror("Unable to open file.");
+        return NULL;
+    }
+    char* strPtr = (char*)malloc(MAX_LINE_LEN * sizeof(char));
+    fgets(strPtr, MAX_LINE_LEN, fptr);
+    fclose(fptr);
+    strPtr[strcspn(strPtr, "\n")] = 0;
+    return strPtr;
 }
 
 /*
@@ -29,5 +39,11 @@ char* readString(char* fileName){
  * 
  */
 char* mysteryExplode(const char* str){
-    //TODO: Replace this line with your code
+    
+    char* resultPtr = (char*)malloc(strlen(str) * strlen(str) * sizeof(char));
+    resultPtr[0] = 0;
+    for (int i = 0; i < strlen(str) + 1; i++) {
+        strncat(resultPtr, str, i);
+    }
+    return resultPtr;
 }
